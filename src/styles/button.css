@@ -1,0 +1,19 @@
+.btn {
+  height: 50px;
+  width: 50px;
+}
+
+.light-btn {
+  background-color: #f0f0f0;
+  color: #000;
+}
+
+.btn-wide {
+  height: 50px;
+  width: 100px;
+}
+
+.dark-btn {
+  background-color: #666;
+  color: #fff;
+}

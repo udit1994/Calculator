@@ -1,0 +1,49 @@
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+
+.dark-display {
+  color: #fff;
+}
+
+.dark-page {
+  background-color: #000;
+}
+
+.display {
+  width: 328px;
+  height: 50px;
+  border: solid 1px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 10px;
+}
+
+.light-display {
+  color: #000;
+}
+
+.light-page {
+  background-color: #fff;
+}
+
+.page {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}

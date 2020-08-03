@@ -7,7 +7,14 @@ function Button({ label, onButtonClick, value, wide }) {
   return (
     <ThemeContext.Consumer>
       {({ theme }) => (
-        <button type="button" className={`${theme}-btn ${wide ? 'btn-wide' : 'btn'}`} value={value} onClick={onButtonClick}>{label}</button>
+        <button
+          type="button"
+          className={`${theme}-btn ${wide ? "btn-wide" : "btn"}`}
+          value={value}
+          onClick={onButtonClick}
+        >
+          {label}
+        </button>
       )}
     </ThemeContext.Consumer>
   );
@@ -17,12 +24,12 @@ Button.propTypes = {
   label: PropTypes.string.isRequired,
   onButtonClick: PropTypes.func.isRequired,
   value: PropTypes.string,
-  wide: PropTypes.bool
-}
+  wide: PropTypes.bool,
+};
 
 Button.defaultProps = {
   value: null,
-  wide: false
-}
+  wide: false,
+};
 
 export default Button;

@@ -4,18 +4,18 @@ import ThemeProvider, { ThemeContext } from "./ThemeProvider";
 import calculate from "../util/calculate";
 import "../styles/app.css";
 
-const simpleOperatorsList = [ "+", "-", "*", "/" ];
-const numbers = [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" ];
-const scientificOperatorsList = [ "sign", "^", "√" ];
+const simpleOperatorsList = ["+", "-", "*", "/"];
+const numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+const scientificOperatorsList = ["sign", "^", "√"];
 
 const initialState = {
   leftOperand: "",
   rightOperand: "",
   operator: "",
-  displayValue: ""
+  displayValue: "",
 };
 
-export default class App extends Component {
+class App extends Component {
   state = initialState;
 
   handleButtonClick = (e) => {
@@ -23,44 +23,53 @@ export default class App extends Component {
 
     const buttonValue = e.target.value;
 
-    if (scientificOperatorsList.includes(buttonValue) && displayValue && +displayValue) {
+    if (
+      scientificOperatorsList.includes(buttonValue) &&
+      displayValue &&
+      +displayValue
+    ) {
       switch (buttonValue) {
-        case "sign": {
-          const result = (-1 * +displayValue).toString();
+        case "sign":
+          {
+            const result = (-1 * +displayValue).toString();
 
-          if (operator) {
+            if (operator) {
+              this.setState({
+                displayValue: result,
+                rightOperand: result,
+              });
+            } else {
+              this.setState({
+                leftOperand: result,
+                displayValue: result,
+              });
+            }
+          }
+          break;
+        case "^":
+          {
+            const result = ((+displayValue) ** 2).toString();
+
             this.setState({
+              leftOperand: "",
               displayValue: result,
-              rightOperand: result
-            });
-          } else {
-            this.setState({
-              leftOperand: result,
-              displayValue: result
+              rightOperand: "",
+              operator: "",
             });
           }
-        } break;
-        case "^": {
-          const result = ((+displayValue) ** 2).toString();
+          break;
+        case "√":
+          {
+            const result = Math.sqrt(+displayValue).toString();
 
-          this.setState({
-            leftOperand: "",
-            displayValue: result,
-            rightOperand: "",
-            operator: ""
-          });
-        } break;
-        case "√": {
-          const result = Math.sqrt(+displayValue).toString();
-
-          this.setState({
-            leftOperand: "",
-            displayValue: result,
-            rightOperand: "",
-            operator: ""
-          });
-
-        } break;
+            this.setState({
+              leftOperand: "",
+              displayValue: result,
+              rightOperand: "",
+              operator: "",
+            });
+          }
+          break;
         default:
       }
 
@@ -75,11 +84,11 @@ export default class App extends Component {
           leftOperand: result,
           rightOperand: "",
           operator: buttonValue,
-          displayValue: result
+          displayValue: result,
         });
       } else if (leftOperand) {
         this.setState({
-          operator: buttonValue
+          operator: buttonValue,
         });
       }
 
@@ -91,22 +100,26 @@ export default class App extends Component {
         if ([0, NaN].includes(+rightOperand)) {
           this.setState({
             rightOperand: buttonValue,
-            displayValue: buttonValue
+            displayValue: buttonValue,
           });
         } else {
-          const result = [0, NaN].includes(+rightOperand) ? buttonValue : rightOperand + buttonValue;
+          const result = [0, NaN].includes(+rightOperand)
+            ? buttonValue
+            : rightOperand + buttonValue;
 
           this.setState({
             rightOperand: result,
-            displayValue: result
+            displayValue: result,
           });
         }
       } else {
-        const result = [0, NaN].includes(+leftOperand) ? buttonValue : leftOperand + buttonValue;
+        const result = [0, NaN].includes(+leftOperand)
+          ? buttonValue
+          : leftOperand + buttonValue;
 
         this.setState({
           leftOperand: result,
-          displayValue: result
+          displayValue: result,
         });
       }
 
@@ -120,7 +133,7 @@ export default class App extends Component {
         leftOperand: result,
         rightOperand: "",
         operator: "",
-        displayValue: result
+        displayValue: result,
       });
 
       return;
@@ -129,7 +142,7 @@ export default class App extends Component {
     if (buttonValue === "clear") {
       this.setState(initialState);
     }
-  }
+  };
 
   render() {
     return (
@@ -137,7 +150,9 @@ export default class App extends Component {
         <ThemeContext.Consumer>
           {({ theme }) => (
             <div className={`${theme}-page page`}>
-              <div className= {`${theme}-display display`}>{this.state.displayValue}</div>
+              <div className={`${theme}-display display`}>
+                {this.state.displayValue}
+              </div>
               <Buttons onButtonClick={this.handleButtonClick} />
             </div>
           )}
@@ -146,3 +161,5 @@ export default class App extends Component {
     );
   }
 }
+
+export default App;
